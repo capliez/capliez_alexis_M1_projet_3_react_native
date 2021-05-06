@@ -11,7 +11,13 @@ import {
   DELETE_QUANTITY_CART,
   DELETE_QUANTITY_CART_ERROR,
   DELETE_QUANTITY_CART_SUCCESS,
+  CLEAR_ALL_CART,
 } from '../action-types';
+
+//Clear Cart
+export const clearCart = () => ({
+  type: CLEAR_ALL_CART,
+});
 
 //Delete Cart
 export const deleteCart = (id) => ({

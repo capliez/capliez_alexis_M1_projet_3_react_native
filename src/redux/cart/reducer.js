@@ -11,6 +11,7 @@ import {
   DELETE_QUANTITY_CART,
   DELETE_QUANTITY_CART_SUCCESS,
   DELETE_QUANTITY_CART_ERROR,
+  CLEAR_ALL_CART,
 } from '../action-types';
 
 const INIT_STATE = {
@@ -22,6 +23,8 @@ const INIT_STATE = {
 
 export default (state = INIT_STATE, action) => {
   switch (action.type) {
+    case CLEAR_ALL_CART:
+      return { ...state, all: null };
     case DELETE_QUANTITY_CART:
       return { ...state, loading: true };
     case DELETE_QUANTITY_CART_SUCCESS:
