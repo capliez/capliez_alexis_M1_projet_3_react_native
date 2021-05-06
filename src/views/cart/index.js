@@ -4,9 +4,10 @@ import Navbar from '../../components/navbar';
 import ListCart from '../../components/listCart';
 import { Text, Layout, Button } from '@ui-kitten/components';
 import { View } from 'react-native';
-import { deleteCart } from '../../redux/cart/actions';
+import { deleteCart, clearCart } from '../../redux/cart/actions';
 import { currentProduct } from '../../redux/products/actions';
 import { ROUTES } from '../../config/routes';
+import { addOrder } from '../../redux/order/actions';
 
 const CartScreen = ({
   allCart,
@@ -14,6 +15,8 @@ const CartScreen = ({
   currentProductAction,
   navigation,
   currentUser,
+  addOrderAction,
+  clearCartAction,
 }) => {
   const [total, setTotal] = useState(0);
   const [updateTotal, setUpdateTotal] = useState(false);
@@ -64,7 +67,14 @@ const CartScreen = ({
         <Button
           disabled={allCart && allCart.length > 0 ? false : true}
           status="primary"
-          onPress={() => !currentUser && navigation.navigate(ROUTES.signIn)}
+          onPress={() => {
+            if (currentProduct) {
+              clearCartAction();
+              addOrderAction(allCart, total);
+            } else {
+              navigation.navigate(ROUTES.signIn);
+            }
+          }}
         >
           Commander
         </Button>
@@ -88,4 +98,6 @@ const mapStateToProps = ({ authUser, cart }) => {
 export default connect(mapStateToProps, {
   deleteCartAction: deleteCart,
   currentProductAction: currentProduct,
+  addOrderAction: addOrder,
+  clearCartAction: clearCart,
 })(CartScreen);

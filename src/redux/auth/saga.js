@@ -121,7 +121,6 @@ const logoutUserAsync = () =>
 function* logoutUser() {
   try {
     const user = yield call(logoutUserAsync);
-    console.log('ici', user);
     if (user) yield put(logoutUserSuccess());
     else yield put(logoutUserError('Une erreur est survenue'));
   } catch (error) {
