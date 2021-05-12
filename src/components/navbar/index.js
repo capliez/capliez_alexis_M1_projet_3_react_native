@@ -115,9 +115,12 @@ const Navbar = ({ currentUser, loadingUser, allcart, logoutUserAction }) => {
               )}
 
               <MenuItem
-                onPress={() => setMenuVisible(!menuVisible)}
+                onPress={() => {
+                  setMenuVisible(!menuVisible);
+                  navigation.navigate(ROUTES.myOrders);
+                }}
                 accessoryLeft={MyAccountIcon}
-                title="Mon compte"
+                title="Mes commandes"
               />
               <MenuItem
                 onPress={() => {

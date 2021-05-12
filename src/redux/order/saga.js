@@ -29,10 +29,11 @@ const getCurrentOrderAsync = async (id) => {
   return orderCurrent;
 };
 
-function* getCurrentOrder() {
+function* getCurrentOrder({ payload }) {
+  const id = payload;
   try {
-    const order = yield call(getCurrentOrderAsync);
-    if (order) yield put(getCurrentOrderSuccess(order));
+    const order = yield call(getCurrentOrderAsync, id);
+    if (order) yield put(getCurrentOrderSuccess(id));
     else yield put(getCurrentOrderError('Une erreur est survenue'));
   } catch (error) {
     yield put(getCurrentOrderError('Une erreur est survenue'));
@@ -106,7 +107,6 @@ function* addOrder({ payload }) {
     if (order) yield put(addOrderSuccess(order));
     else yield put(addOrderError('Une erreur est survenue'));
   } catch (error) {
-    console.log(error);
     yield put(addOrderError('Une erreur est survenue'));
   }
 }

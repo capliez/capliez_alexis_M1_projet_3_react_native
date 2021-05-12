@@ -7,6 +7,7 @@ import { ROUTES } from './config/routes';
 import { SafeAreaView } from 'react-native';
 import { AddProduct, CurrentProduct } from './views/products';
 import CartScreen from './views/cart';
+import { ListOrder, CurrentOrder } from './views/orders';
 const { Navigator, Screen } = createStackNavigator();
 
 const HomeNavigator = () => (
@@ -17,6 +18,8 @@ const HomeNavigator = () => (
     <Screen name={ROUTES.addProduct} component={AddProduct} />
     <Screen name={ROUTES.currentProduct} component={CurrentProduct} />
     <Screen name={ROUTES.cart} component={CartScreen} />
+    <Screen name={ROUTES.myOrders} component={ListOrder} />
+    <Screen name={ROUTES.currentMyOrder} component={CurrentOrder} />
   </Navigator>
 );
 
