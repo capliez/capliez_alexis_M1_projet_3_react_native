@@ -68,7 +68,7 @@ const CartScreen = ({
           disabled={allCart && allCart.length > 0 ? false : true}
           status="primary"
           onPress={() => {
-            if (currentProduct) {
+            if (currentUser) {
               clearCartAction();
               addOrderAction(allCart, total);
             } else {

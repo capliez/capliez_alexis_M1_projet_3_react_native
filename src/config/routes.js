@@ -5,4 +5,6 @@ export const ROUTES = {
   addProduct: 'newProduct',
   currentProduct: 'currentProduct',
   cart: 'cart',
+  myOrders: 'myOrders',
+  currentMyOrder: 'currentMyOrder',
 };
