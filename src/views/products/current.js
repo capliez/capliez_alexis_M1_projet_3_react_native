@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Text, Layout } from '@ui-kitten/components';
+import { Layout } from '@ui-kitten/components';
 import Loading from '../../components/_shared/loading';
 import Navbar from '../../components/navbar';
 import PropTypes from 'prop-types';
@@ -53,7 +53,17 @@ CurrentProduct.propTypes = {
   allCart: PropTypes.array,
 };
 
-export default connect(mapStateToProps, {
+const mapDispatchToProps = {
   addCartAction: addCart,
   updateCartAction: updateCart,
-})(CurrentProduct);
+};
+
+CurrentProduct.propTypes = {
+  loadingProduct: PropTypes.bool,
+  currentProduct: PropTypes.object,
+  addCartAction: PropTypes.func,
+  updateCartAction: PropTypes.func,
+  allCart: PropTypes.array,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentProduct);

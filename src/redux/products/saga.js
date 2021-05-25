@@ -16,7 +16,7 @@ import {
   currentProductSuccess,
 } from './actions';
 import Firebase from '../../config/firebase';
-
+import { PRODUCTS } from '../../config/data';
 //Get Products
 export function* watchGetProducts() {
   yield takeEvery(GET_PRODUCTS, getProducts);
@@ -35,7 +35,7 @@ const getProductsAsync = async () => {
       });
     });
 
-  return products.reverse();
+  return products ? products.reverse() : PRODUCTS.reverse();
 };
 
 function* getProducts() {

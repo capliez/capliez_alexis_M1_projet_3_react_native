@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Text, Layout } from '@ui-kitten/components';
+import { Layout } from '@ui-kitten/components';
 import FormProduct from '../../components/_shared/formProduct';
 import { connect } from 'react-redux';
 import { addProduct } from '../../redux/products/actions';
 import Navbar from '../../components/navbar';
 import { ROUTES } from '../../config/routes';
+import PropTypes from 'prop-types';
+
 const AddProduct = ({
   loadingProduct,
-  successProduct,
   errorProduct,
   addProductAction,
   currentUser,
@@ -63,15 +64,21 @@ const AddProduct = ({
 };
 
 const mapStateToProps = ({ products, authUser }) => {
-  const {
-    success: successProduct,
-    error: errorProduct,
-    loading: loadingProduct,
-  } = products;
+  const { error: errorProduct, loading: loadingProduct } = products;
   const { current: currentUser } = authUser;
-  return { successProduct, loadingProduct, errorProduct, currentUser };
+  return { loadingProduct, errorProduct, currentUser };
 };
 
-export default connect(mapStateToProps, { addProductAction: addProduct })(
-  AddProduct,
-);
+const mapDispatchToProps = {
+  addProductAction: addProduct,
+};
+
+AddProduct.propTypes = {
+  loadingProduct: PropTypes.bool,
+  errorProduct: PropTypes.string,
+  addProductAction: PropTypes.func,
+  currentUser: PropTypes.object,
+  navigation: PropTypes.object,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddProduct);

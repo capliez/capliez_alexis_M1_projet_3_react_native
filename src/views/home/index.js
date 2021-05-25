@@ -1,4 +1,4 @@
-import { Divider, Layout, Text } from '@ui-kitten/components';
+import { Divider, Layout } from '@ui-kitten/components';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import Navbar from '../../components/navbar';
@@ -6,10 +6,9 @@ import { getProducts, currentProduct } from '../../redux/products/actions';
 import ListProduct from '../../components/listProduct';
 import Loading from '../../components/_shared/loading';
 import { addCart, updateCart } from '../../redux/cart/actions';
+import PropTypes from 'prop-types';
 
 const HomeScreen = ({
-  currentUser,
-  loadingUser,
   getProductsAction,
   allProducts,
   loadingProducts,
@@ -48,8 +47,7 @@ const HomeScreen = ({
   );
 };
 
-const mapStateToProps = ({ authUser, products, cart }) => {
-  const { current: currentUser, loading: loadingUser } = authUser;
+const mapStateToProps = ({ products, cart }) => {
   const { all: allCart, loading: loadingCart } = cart;
   const {
     all: allProducts,
@@ -57,8 +55,6 @@ const mapStateToProps = ({ authUser, products, cart }) => {
     current: currentProduct,
   } = products;
   return {
-    currentUser,
-    loadingUser,
     allProducts,
     loadingProducts,
     currentProduct,
@@ -67,9 +63,24 @@ const mapStateToProps = ({ authUser, products, cart }) => {
   };
 };
 
-export default connect(mapStateToProps, {
+const mapDispatchToProps = {
   getProductsAction: getProducts,
   currentProductAction: currentProduct,
   addCartAction: addCart,
   updateCartAction: updateCart,
-})(HomeScreen);
+};
+
+HomeScreen.propTypes = {
+  getProductsAction: PropTypes.func,
+  allProducts: PropTypes.array,
+  loadingProducts: PropTypes.bool,
+  currentProductAction: PropTypes.func,
+  navigation: PropTypes.object,
+  currentProduct: PropTypes.object,
+  addCartAction: PropTypes.func,
+  allCart: PropTypes.array,
+  loadingCart: PropTypes.bool,
+  updateCartAction: PropTypes.func,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

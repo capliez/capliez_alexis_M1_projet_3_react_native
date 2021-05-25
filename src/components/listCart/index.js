@@ -2,6 +2,8 @@ import React from 'react';
 import { Button, Icon, List, ListItem } from '@ui-kitten/components';
 import { StyleSheet } from 'react-native';
 import { ROUTES } from '../../config/routes';
+import PropTypes from 'prop-types';
+
 const ListCart = ({
   data,
   deleteCartAction,
@@ -43,5 +45,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
 });
+
+ListCart.propTypes = {
+  data: PropTypes.array,
+  deleteCartAction: PropTypes.func,
+  updateTotal: PropTypes.bool,
+  setUpdateTotal: PropTypes.func,
+  currentProductAction: PropTypes.func,
+  navigation: PropTypes.object,
+};
 
 export default ListCart;
