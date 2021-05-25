@@ -1,6 +1,6 @@
 import React from 'react';
-import { TouchableWithoutFeedback, StyleSheet } from 'react-native';
-import { Input, Text, Icon, Button } from '@ui-kitten/components';
+import { StyleSheet } from 'react-native';
+import { Input, Text, Button } from '@ui-kitten/components';
 import PropTypes from 'prop-types';
 
 const FormProduct = ({
@@ -90,5 +90,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+
+FormProduct.propTypes = {
+  setFields: PropTypes.func,
+  fields: PropTypes.object,
+  title: PropTypes.string,
+  onSubmit: PropTypes.func,
+  loading: PropTypes.bool,
+  error: PropTypes.string,
+  messageError: PropTypes.string,
+};
 
 export default FormProduct;

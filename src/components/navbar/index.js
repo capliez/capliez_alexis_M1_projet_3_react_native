@@ -5,7 +5,6 @@ import {
   TopNavigation,
   TopNavigationAction,
   Text,
-  Divider,
 } from '@ui-kitten/components';
 import { TouchableWithoutFeedback, View, TouchableOpacity } from 'react-native';
 import React, { useState } from 'react';
@@ -14,6 +13,7 @@ import { ROUTES } from '../../config/routes';
 import { connect } from 'react-redux';
 import { getNameRole } from '../../config/utils';
 import { logoutUser } from '../../redux/auth/actions';
+import PropTypes from 'prop-types';
 
 const UserIcon = (props) => <Icon {...props} name="person-outline" />;
 
@@ -162,6 +162,15 @@ const mapStateToProps = ({ authUser, cart }) => {
   return { currentUser, loadingUser, allcart };
 };
 
-export default connect(mapStateToProps, {
+const mapDispatchToProps = {
   logoutUserAction: logoutUser,
-})(Navbar);
+};
+
+Navbar.propTypes = {
+  currentUser: PropTypes.object,
+  loadingUser: PropTypes.bool,
+  allcart: PropTypes.func,
+  logoutUserAction: PropTypes.func,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

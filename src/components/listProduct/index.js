@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
-import { Card, List, Text, Button, Icon } from '@ui-kitten/components';
+import { Card, List, Text, Button } from '@ui-kitten/components';
 import PropTypes from 'prop-types';
 import { ROUTES } from '../../config/routes';
 import { AppImages } from '../../img';
@@ -131,4 +131,5 @@ ListProduct.propTypes = {
   loadingCart: PropTypes.bool,
   updateCartAction: PropTypes.func,
 };
+
 export default ListProduct;

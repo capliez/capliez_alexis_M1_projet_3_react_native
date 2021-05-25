@@ -8,7 +8,13 @@ import {
   ADD_ORDER,
   ADD_ORDER_ERROR,
   ADD_ORDER_SUCCESS,
+  RESET_ORDER_SUCCESS,
 } from '../action-types';
+
+//Reset Success
+export const resetSuccessOrder = () => ({
+  type: RESET_ORDER_SUCCESS,
+});
 
 //Get current order
 export const getCurrentOrder = (id) => ({

@@ -8,6 +8,7 @@ import {
   ADD_ORDER,
   ADD_ORDER_ERROR,
   ADD_ORDER_SUCCESS,
+  RESET_ORDER_SUCCESS,
 } from '../action-types';
 
 const INIT_STATE = {
@@ -20,6 +21,8 @@ const INIT_STATE = {
 
 export default (state = INIT_STATE, action) => {
   switch (action.type) {
+    case RESET_ORDER_SUCCESS:
+      return { ...state, success: false };
     case ADD_ORDER:
       return { ...state, loading: true };
     case ADD_ORDER_SUCCESS:

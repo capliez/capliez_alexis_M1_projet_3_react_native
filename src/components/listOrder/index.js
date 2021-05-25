@@ -2,6 +2,7 @@ import React from 'react';
 import { Button, Icon, List, ListItem } from '@ui-kitten/components';
 import { StyleSheet } from 'react-native';
 import { ROUTES } from '../../config/routes';
+import PropTypes from 'prop-types';
 
 const ListOrder = ({ data, getCurrentOrderAction, navigation }) => {
   const renderItemAccessory = (props, id) => (
@@ -37,5 +38,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
 });
+
+ListOrder.propTypes = {
+  data: PropTypes.array,
+  getCurrentOrderAction: PropTypes.func,
+  navigation: PropTypes.object,
+};
 
 export default ListOrder;

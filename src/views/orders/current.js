@@ -6,6 +6,7 @@ import Loading from '../../components/_shared/loading';
 import { currentProduct } from '../../redux/products/actions';
 import { ROUTES } from '../../config/routes';
 import { View } from 'react-native';
+import PropTypes from 'prop-types';
 
 const CurrentOrder = ({
   currentOrder,
@@ -62,6 +63,16 @@ const mapStateToProps = ({ orders, products }) => {
   };
 };
 
-export default connect(mapStateToProps, {
+const mapDispatchToProps = {
   currentProductAction: currentProduct,
-})(CurrentOrder);
+};
+
+CurrentOrder.propTypes = {
+  currentOrder: PropTypes.object,
+  loadingOrders: PropTypes.bool,
+  allProducts: PropTypes.array,
+  navigation: PropTypes.object,
+  currentProductAction: PropTypes.func,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentOrder);
