@@ -17,6 +17,16 @@ import {
 } from './actions';
 import Firebase from '../../config/firebase';
 import { PRODUCTS } from '../../config/data';
+
+function createAutoProduct() {
+  PRODUCTS.forEach((p) => {
+    const result = addProductAsync(p);
+    if (result) addProductSuccess(result);
+  });
+
+  return getProductsAsync();
+}
+
 //Get Products
 export function* watchGetProducts() {
   yield takeEvery(GET_PRODUCTS, getProducts);
@@ -35,7 +45,7 @@ const getProductsAsync = async () => {
       });
     });
 
-  return products ? products.reverse() : PRODUCTS.reverse();
+  return products.length > 0 ? products.reverse() : createAutoProduct();
 };
 
 function* getProducts() {

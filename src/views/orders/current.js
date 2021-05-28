@@ -24,29 +24,31 @@ const CurrentOrder = ({
         <Text category="p1">Total {currentOrder.total} €</Text>
         <Text category="h6">Les articles</Text>
 
-        {currentOrder.products.map((p) => {
-          const { quantity, id } = p;
-          const currentProduct = allProducts.find((c) => c.id === id);
-          return (
-            <View
-              key={id}
-              style={{ flexDirection: 'row', alignItems: 'center' }}
-            >
-              <Text>
-                {currentProduct.name} {currentProduct.quantity}
-              </Text>
-              <Button
-                size="small"
-                onPress={() => {
-                  currentProductAction(id);
-                  navigation.navigate(ROUTES.currentProduct);
-                }}
+        {!loadingOrders &&
+          currentOrder &&
+          currentOrder.products.map((p) => {
+            const { quantity, id } = p;
+            const currentProduct = allProducts.find((c) => c.id === id);
+            return (
+              <View
+                key={id}
+                style={{ flexDirection: 'row', alignItems: 'center' }}
               >
-                Voir
-              </Button>
-            </View>
-          );
-        })}
+                <Text>
+                  {currentProduct.name} {currentProduct.quantity}
+                </Text>
+                <Button
+                  size="small"
+                  onPress={() => {
+                    currentProductAction(id);
+                    navigation.navigate(ROUTES.currentProduct);
+                  }}
+                >
+                  Voir
+                </Button>
+              </View>
+            );
+          })}
       </Layout>
     </>
   );

@@ -94,7 +94,7 @@ const addOrderAsync = async ({ cart, total }) => {
 
   return {
     total,
-    produts: idProducts,
+    products: idProducts,
     idUser: user.uid,
     id: newOrderRef.key,
     createdAt: createdAt.format('L'),
