@@ -1,7 +1,17 @@
 import React from 'react';
 import { TouchableWithoutFeedback, StyleSheet } from 'react-native';
-import { Input, Text, Icon, Button } from '@ui-kitten/components';
+import {
+  Input,
+  Text,
+  Icon,
+  Button,
+  Select,
+  SelectItem,
+} from '@ui-kitten/components';
 import PropTypes from 'prop-types';
+
+const StarIcon = (props) => <Icon {...props} name="star" />;
+const UserIcon = (props) => <Icon {...props} name="person-outline" />;
 
 const FormAuth = ({
   secureTextEntry,
@@ -18,6 +28,10 @@ const FormAuth = ({
   name,
   isName,
   title,
+  setRoleIndex,
+  isSignUp,
+  roleIndex,
+  ROLES,
 }) => {
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry);
@@ -27,6 +41,10 @@ const FormAuth = ({
     <TouchableWithoutFeedback onPress={toggleSecureEntry}>
       <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'} />
     </TouchableWithoutFeedback>
+  );
+
+  const renderOption = (title) => (
+    <SelectItem key={title} accessoryLeft={StarIcon} title={title} />
   );
 
   return (
@@ -67,6 +85,21 @@ const FormAuth = ({
         secureTextEntry={secureTextEntry}
         onChangeText={(nextValue) => setPassword(nextValue.trimStart())}
       />
+
+      {isSignUp && (
+        <Select
+          label="Rôle"
+          status={errorUser ? 'danger' : 'basic'}
+          disabled={loading}
+          style={styles.input}
+          placeholder="Choisir le rôle"
+          value={ROLES[roleIndex.row].name}
+          selectedIndex={roleIndex}
+          onSelect={(index) => setRoleIndex(index)}
+        >
+          {ROLES.map((r) => renderOption(r.name))}
+        </Select>
+      )}
       <Button
         style={styles.button}
         onPress={() => onSubmit()}
@@ -109,6 +142,10 @@ FormAuth.propTypes = {
   setName: PropTypes.func,
   name: PropTypes.string,
   isName: PropTypes.bool,
+  roleIndex: PropTypes.object,
+  setRoleIndex: PropTypes.func,
+  isSignUp: PropTypes.bool,
+  ROLES: PropTypes.array,
 };
 
 export default FormAuth;

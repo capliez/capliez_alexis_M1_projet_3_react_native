@@ -1,4 +1,4 @@
-import { Layout } from '@ui-kitten/components';
+import { Layout, IndexPath } from '@ui-kitten/components';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
@@ -10,6 +10,11 @@ import {
   clearSuccessUser,
   registerUser,
 } from '../../redux/auth/actions';
+
+const ROLES = [
+  { name: 'Client', type: 'ROLE_USER' },
+  { name: 'Administrateur', type: 'ROLE_ADMIN' },
+];
 
 const SignUpScreen = ({
   navigation,
@@ -24,6 +29,7 @@ const SignUpScreen = ({
   const [email, setEmail] = useState('capliezalexis@yahoo.fr');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [roleIndex, setRoleIndex] = useState(new IndexPath(0));
 
   const [secureTextEntry, setSecureTextEntry] = useState(true);
   const [messageError, setMessageError] = useState('');
@@ -37,12 +43,13 @@ const SignUpScreen = ({
   }, [successUser, currentUser]);
 
   const onSubmit = () => {
-    if (email && password && name) {
+    if (email && password && name && roleIndex) {
       setMessageError('');
       registerUserAction({
         email: email,
         password: password,
         name: name,
+        role: ROLES[roleIndex.row].type,
       });
     } else {
       setMessageError('Merci de remplir tous les champs');
@@ -56,8 +63,12 @@ const SignUpScreen = ({
         <SignUpForm
           setEmail={setEmail}
           email={email}
+          isSignUp={true}
           name={name}
           setName={setName}
+          roleIndex={roleIndex}
+          ROLES={ROLES}
+          setRoleIndex={setRoleIndex}
           title="Inscription"
           isName={true}
           password={password}

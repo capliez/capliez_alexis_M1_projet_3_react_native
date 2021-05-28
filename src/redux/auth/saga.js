@@ -15,15 +15,15 @@ export function* watchRegisterUser() {
   yield takeEvery(REGISTER_USER, registerWithEmailPassword);
 }
 
-const registerProfileAsync = async (id) => {
+const registerProfileAsync = async (id, role) => {
   const usersRef = await Firebase.database().ref('users');
   var newUserRef = usersRef.child(id);
   newUserRef.set({
-    role: 'ROLE_USER',
+    role: role,
   });
 };
 
-const registerWithEmailPasswordAsync = async (email, password, name) => {
+const registerWithEmailPasswordAsync = async (email, password, name, role) => {
   let result = { status: null, value: null };
   await Firebase.auth()
     .createUserWithEmailAndPassword(email, password)
@@ -31,13 +31,13 @@ const registerWithEmailPasswordAsync = async (email, password, name) => {
       res.user.updateProfile({
         displayName: name,
       });
-      await registerProfileAsync(res.user.uid);
+      await registerProfileAsync(res.user.uid, role);
       result.status = 201;
       result.value = {
         id: res.user.uid,
         email: res.user.email,
         name: name,
-        role: 'ROLE_USER',
+        role: role,
       };
     })
     .catch((error) => {
@@ -47,13 +47,14 @@ const registerWithEmailPasswordAsync = async (email, password, name) => {
 };
 
 function* registerWithEmailPassword({ payload }) {
-  const { email, password, name } = payload;
+  const { email, password, name, role } = payload;
   try {
     const user = yield call(
       registerWithEmailPasswordAsync,
       email,
       password,
       name,
+      role,
     );
     if (user.status === 201) yield put(registerUserSuccess(user.value));
     else yield put(registerUserError(user.value));
