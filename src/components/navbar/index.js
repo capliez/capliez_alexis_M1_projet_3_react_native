@@ -169,7 +169,7 @@ const mapDispatchToProps = {
 Navbar.propTypes = {
   currentUser: PropTypes.object,
   loadingUser: PropTypes.bool,
-  allcart: PropTypes.func,
+  allcart: PropTypes.array,
   logoutUserAction: PropTypes.func,
 };
 
